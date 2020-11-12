@@ -1,15 +1,42 @@
 ﻿@inherits LayoutComponentBase
 
-<div>
-    <NavMenu />
-</div>
+<MatAppBarContainer>
+	<MatAppBar Fixed="true">
+		<MatAppBarRow>
+			<MatAppBarSection>
+				<MatIconButton Icon="menu" OnClick="click"></MatIconButton>
+				<MatAppBarTitle>BlaDialog - proof of concept</MatAppBarTitle>
+			</MatAppBarSection>
+			<MatAppBarSection Align="@MatAppBarSectionAlign.End">
+				<MatIconButton Icon="favorite"></MatIconButton>
+			</MatAppBarSection>
+		</MatAppBarRow>
+	</MatAppBar>
+</MatAppBarContainer>
 
-<div>
-    <div>
-        <a href="http://blazor.net" target="_blank">About</a>
-    </div>
+<MatDrawerContainer Style="width: 100vw; height: 100vh;" Class="mat">
+			<MatDrawer @bind-Opened="@_opened" Mode="@MatDrawerMode.Modal">
+				<MatAppBarAdjust></MatAppBarAdjust>
+			</MatDrawer>
+			<MatDrawer @bind-Opened="@_opened" Mode="@MatDrawerMode.Dismissible">
+				<MatAppBarAdjust></MatAppBarAdjust>
+			</MatDrawer>
+	<MatDrawerContent Class="mdc-theme--background">
+		<MatAppBarAdjust></MatAppBarAdjust>
+		<div class="body-wrapper">
+			@Body
+		</div>
+	</MatDrawerContent>
+</MatDrawerContainer>
 
-    <div>
-        @Body
-    </div>
-</div>
+@code 
+{
+	bool _opened = true;
+
+	void click()
+	{
+		_opened = !_opened;
+		this.StateHasChanged();
+	}
+
+}
